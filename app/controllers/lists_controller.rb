@@ -3,8 +3,8 @@ class ListsController < ActionController::API
   before_action :find_board, only: [:create]
 
   def index
-    @lists = List.all
-    render json: @lists.to_json
+    @lists = List.all.includes(:cards)
+    render json: ActiveModelSerializers::SerializableResource.new(@lists, each_serializer: ListSerializer).to_json, status: 200
   end
 
   def show

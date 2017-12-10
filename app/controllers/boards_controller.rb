@@ -4,7 +4,7 @@ class BoardsController < ActionController::API
 
   def index
     @boards = Board.all
-    render json: @boards.to_json
+    render json: @boards.to_json, status: 200
   end
 
   def show
