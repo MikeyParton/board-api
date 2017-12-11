@@ -4,17 +4,17 @@ class BoardsController < ActionController::API
 
   def index
     @boards = Board.all
-    render json: @boards.to_json, status: 200
+    render json: { boards: @boards.map { |b| BoardSerializer.new(b) } }, status: 200
   end
 
   def show
-    render json: @board, status: 200
+    render json: { board: BoardSerializer.new(@board) }, status: 200
   end
 
   def create
     @board = Board.new(board_params)
     if @board.save
-      render json: @board, status: 201
+      render json: { board: BoardSerializer.new(@board) }, status: 201
     else
       render json: { errors: @board.errors.full_messages }, status: 422
     end
@@ -22,7 +22,7 @@ class BoardsController < ActionController::API
 
   def update
     if @board.update(board_params)
-      render json: @board, status: 201
+      render json: { board: BoardSerializer.new(@board) }, status: 200
     else
       render json: { errors: @board.errors.full_messages }, status: 422
     end

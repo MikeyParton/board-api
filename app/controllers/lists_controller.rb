@@ -4,17 +4,17 @@ class ListsController < ActionController::API
 
   def index
     @lists = List.all.includes(:cards)
-    render json: ActiveModelSerializers::SerializableResource.new(@lists, each_serializer: ListSerializer).to_json, status: 200
+    render json: { lists: @lists.map { |l| ListSerializer.new(l) } }, status: 200
   end
 
   def show
-    render json: @list, status: 200
+    render json: { list: ListSerializer.new(@list) }, status: 200
   end
 
   def create
     @list = List.new(list_params)
     if @list.save
-      render json: @list, status: 201
+      render json: { list: ListSerializer.new(@list) }, status: 201
     else
       render json: { errors: @list.errors.full_messages }, status: 422
     end
@@ -22,7 +22,7 @@ class ListsController < ActionController::API
 
   def update
     if @list.update(list_params)
-      render json: @list, status: 201
+      render json: { list: ListSerializer.new(@list) }, status: 200
     else
       render json: { errors: @list.errors.full_messages }, status: 422
     end

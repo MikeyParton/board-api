@@ -4,17 +4,17 @@ class CardsController < ActionController::API
 
   def index
     @cards = Card.all
-    render json: @cards.to_json
+    render json: { cards: @cards.map { |c| CardSerializer.new(c) } }, status: 200
   end
 
   def show
-    render json: @card, status: 200
+    render json: { card: CardSerializer.new(@card) }, status: 200
   end
 
   def create
     @card = Card.new(card_params)
     if @card.save
-      render json: @card, status: 201
+      render json: { card: CardSerializer.new(@card) }, status: 201
     else
       render json: { errors: @card.errors.full_messages }, status: 422
     end
@@ -22,7 +22,7 @@ class CardsController < ActionController::API
 
   def update
     if @card.update(card_params)
-      render json: @card, status: 201
+      render json: { card: CardSerializer.new(@card) }, status: 200
     else
       render json: { errors: @card.errors.full_messages }, status: 422
     end
