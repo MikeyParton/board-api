@@ -43,6 +43,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    acts_as_list (0.9.10)
+      activerecord (>= 3.0)
     arel (8.0.0)
     builder (3.2.3)
     case_transform (0.2)
@@ -186,6 +188,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  acts_as_list
   database_cleaner
   factory_bot_rails
   guard-rspec
