@@ -13,9 +13,10 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'rails', '~> 5.1.4'
 
 group :development, :test do
-  gem 'rspec-rails'
-  gem 'pry-rails'
   gem 'factory_bot_rails'
+  gem 'ffaker'
+  gem 'pry-rails'
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -29,5 +30,4 @@ group :test do
   gem 'database_cleaner'
 end
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
