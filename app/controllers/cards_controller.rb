@@ -1,5 +1,5 @@
 class CardsController < ActionController::API
-  before_action :find_card, only: [:show, :update, :destroy]
+  before_action :find_card, only: [:show, :update, :destroy, :reorder]
   before_action :find_list, only: [:create]
 
   def index
@@ -34,6 +34,17 @@ class CardsController < ActionController::API
     else
       render json: { errors: @card.errors.full_messages }, status: 422
     end
+  end
+
+  def reorder
+    reorder = Reorder.new(
+      list_item: list,
+      parent_key: "list_id",
+      parent_id: params[:parent_id],
+      position: params[:position]
+    )
+
+    return render json: {}, status: 200
   end
 
   private
