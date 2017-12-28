@@ -1,11 +1,6 @@
-class CardsController < ActionController::API
+class Board::CardsController < ActionController::API
   before_action :find_card, only: [:show, :update, :destroy, :reorder]
   before_action :find_list, only: [:create]
-
-  def index
-    @cards = Card.all
-    render json: { cards: @cards.map { |c| CardSerializer.new(c) } }, status: 200
-  end
 
   def show
     render json: { card: CardSerializer.new(@card) }, status: 200

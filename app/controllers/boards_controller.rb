@@ -1,6 +1,5 @@
 class BoardsController < ActionController::API
   before_action :find_board, only: [:show, :update, :destroy]
-  before_action :find_list, only: [:create]
 
   def index
     @boards = Board.all

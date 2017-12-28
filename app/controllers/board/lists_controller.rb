@@ -1,15 +1,6 @@
-class ListsController < ActionController::API
+class Board::ListsController < ActionController::API
   before_action :find_list, only: [:show, :update, :destroy]
   before_action :find_board, only: [:create]
-
-  def index
-    @lists = List.all.includes(:cards)
-    render json: { lists: @lists.map { |l| ListSerializer.new(l) } }, status: 200
-  end
-
-  def show
-    render json: { list: ListSerializer.new(@list) }, status: 200
-  end
 
   def create
     @list = List.new(list_params)
