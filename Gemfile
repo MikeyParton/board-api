@@ -7,6 +7,8 @@ end
 
 gem 'active_model_serializers'
 gem 'acts_as_list'
+gem 'bcrypt'
+gem 'jwt'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
 gem 'rack-cors', :require => 'rack/cors'

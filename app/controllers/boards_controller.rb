@@ -1,4 +1,4 @@
-class BoardsController < ActionController::API
+class BoardsController < ApplicationController
   before_action :find_board, only: [:show, :update, :destroy]
 
   def index
