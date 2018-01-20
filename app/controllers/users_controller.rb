@@ -1,10 +1,25 @@
 class UsersController < ApplicationController
-  def login
-    token = AuthenticateUser.new(params[:email], params[:password]).process
-    if token.present?
-      render json: { token: token }, status: 201
+  def signup
+    form = SignupForm.new(permitted_params.signup)
+    if form.save
+      render json: {
+        user: UserSerializer.new(form.user),
+        token: form.token,
+      }, status: 201
     else
-      render json: { error: 'Invalid email or password' }, status: 401
+      render json: { error: form.errors }, status: 422
+    end
+  end
+
+  def login
+    form = LoginForm.new(permitted_params.login)
+    if form.save
+      render json: {
+        user: UserSerializer.new(form.user),
+        token: form.token,
+      }, status: 201
+    else
+      render json: { error: form.errors }, status: 422
     end
   end
 end
