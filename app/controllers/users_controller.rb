@@ -19,7 +19,16 @@ class UsersController < ApplicationController
         token: form.token,
       }, status: 201
     else
-      render json: { error: form.errors }, status: 422
+      render json: { error: form.errors }, status: 401
+    end
+  end
+
+  def profile
+    authorize_request
+    if current_user.present?
+      render json: {
+        user: UserSerializer.new(current_user)
+      }, status: 200
     end
   end
 end

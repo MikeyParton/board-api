@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   scope 'api' do
     post 'auth/login', to: 'users#login'
     post 'auth/signup', to: 'users#signup'
+    get  'profile', to: 'users#profile'
 
     resources :boards, except: [:edit, :new] do
       resources :lists, except: [:edit, :new], controller: 'board/lists'
