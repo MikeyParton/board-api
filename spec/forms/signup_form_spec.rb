@@ -15,12 +15,19 @@ RSpec.describe SignupForm do
         password_confirmation: 'validpassword'
       }}
 
-      it 'creates a user with a valid token' do
-        expect(form.user.persisted?).to eq(true)
+      it 'creates a user, account and valid token' do
+        user = form.user
+        account = form.account
+        token = form.token
+
+        expect(user.persisted?).to eq(true)
+        expect(account.persisted?).to eq(true)
+        expect(account.owner).to eq(user)
+
         expect(form.token.present?).to eq(true)
 
-        decoded_token = JsonWebToken.decode(form.token)
-        expect(decoded_token[:user_id]).to eq(form.user.id)
+        decoded_token = JsonWebToken.decode(token)
+        expect(decoded_token[:user_id]).to eq(user.id)
       end
     end
 
@@ -35,11 +42,12 @@ RSpec.describe SignupForm do
 
       it "doesn't create a user or token" do
         expect(User.count).to eq(0)
+        expect(Account.count).to eq(0)
         expect(form.token.present?).to eq(false)
       end
     end
 
-    fcontext 'with an email that has already been taken' do
+    context 'with an email that has already been taken' do
       let(:user) { create(:user) }
 
       let(:params) {{

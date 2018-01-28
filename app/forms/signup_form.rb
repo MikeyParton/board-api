@@ -9,6 +9,7 @@ class SignupForm < BaseForm
 
   attr_reader(
     :user,
+    :account,
     :token
   )
 
@@ -18,6 +19,7 @@ class SignupForm < BaseForm
 
   def persist!
     @user = User.create(user_params)
+    @account = Account.create(owner: @user)
     @token = JsonWebToken.encode(user_id: user.id)
   end
 
