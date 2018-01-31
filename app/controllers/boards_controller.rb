@@ -1,8 +1,8 @@
-class BoardsController < ApplicationController
+class BoardsController < AuthorizedController
   before_action :find_board, only: [:show, :update, :destroy]
 
   def index
-    @boards = Board.all
+    @boards = current_user.boards
     render json: { boards: @boards.map { |b| BoardSerializer.new(b) } }, status: 200
   end
 
@@ -38,8 +38,7 @@ class BoardsController < ApplicationController
   private
 
   def find_board
-    @board = Board.find_by(id: params[:id])
-    return render json: { errors: 'Board not found' }, status: 404 unless @board.present?
+    @board = Board.friendly.find(params[:id])
   end
 
   def board_params

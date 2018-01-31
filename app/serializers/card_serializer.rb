@@ -1,7 +1,7 @@
 class CardSerializer < ActiveModel::Serializer
-  attributes :id, :name, :list_id, :board_id
+  attributes :id, :name, :list_id, :slug, :board_slug
 
-  def board_id
-    object.board.id
+  def board_slug
+    object.board.slug
   end
 end

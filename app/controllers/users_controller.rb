@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authorize_request, only: [:profile]
+
   def signup
     form = SignupForm.new(permitted_params.signup)
     if form.save
@@ -24,7 +26,6 @@ class UsersController < ApplicationController
   end
 
   def profile
-    authorize_request
     if current_user.present?
       render json: {
         user: UserSerializer.new(current_user)

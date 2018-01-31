@@ -1,5 +1,5 @@
 class BoardSerializer < ActiveModel::Serializer
-  attributes :id, :name, :lists
+  attributes :id, :name, :slug, :lists
 
   def lists
     ActiveModelSerializers::SerializableResource.new(

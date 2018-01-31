@@ -1,4 +1,4 @@
-class Board::ListsController < ActionController::API
+class Board::ListsController < ::AuthorizedController
   before_action :find_list, only: [:show, :update, :destroy]
   before_action :find_board, only: [:create]
 
@@ -30,13 +30,11 @@ class Board::ListsController < ActionController::API
   private
 
   def find_board
-    @board = List.find_by(id: params[:list][:board_id])
-    return render json: { errors: 'Board not found' }, status: 404 unless @board.present?
+    @board = List.find(id: params[:list][:board_id])
   end
 
   def find_list
-    @list = List.find_by(id: params[:id])
-    return render json: { errors: 'List not found' }, status: 404 unless @list.present?
+    @list = List.find(id: params[:id])
   end
 
   def list_params

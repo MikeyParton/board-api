@@ -18,11 +18,11 @@ module ExceptionHandler
     rescue_from ExceptionHandler::DecodeError, with: :four_zero_one
 
     rescue_from ActiveRecord::RecordNotFound do |e|
-     render json: { message: e.message }, status: :not_found
+     render json: { error: e.message }, status: 404
     end
 
     rescue_from ActiveRecord::RecordInvalid do |e|
-      render json: { message: e.message }, status: 422
+      render json: { error: e.message }, status: 422
     end
   end
 

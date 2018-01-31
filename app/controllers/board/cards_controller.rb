@@ -1,6 +1,5 @@
-class Board::CardsController < ActionController::API
+class Board::CardsController < ::AuthorizedController
   before_action :find_card, only: [:show, :update, :destroy, :reorder]
-  before_action :find_list, only: [:create]
 
   def show
     render json: { card: CardSerializer.new(@card) }, status: 200
@@ -44,14 +43,8 @@ class Board::CardsController < ActionController::API
 
   private
 
-  def find_list
-    @list = Card.find_by(id: params[:card][:list_id])
-    return render json: { errors: 'List not found' }, status: 404 unless @list.present?
-  end
-
   def find_card
-    @card = Card.find_by(id: params[:id])
-    return render json: { errors: 'Card not found' }, status: 404 unless @card.present?
+    @card = Card.friendly.find(id: params[:id])
   end
 
   def card_params
