@@ -3,9 +3,7 @@ class Board::ListsController < ::AuthorizedController
   before_action :find_board, only: [:create]
 
   def create
-    binding.pry
-    @list = List.new(list_params)
-
+    @list = @board.lists.new(list_params)
 
     if @list.save
       render json: { list: ListSerializer.new(@list) }, status: 201
