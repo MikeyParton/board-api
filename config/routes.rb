@@ -9,5 +9,9 @@ Rails.application.routes.draw do
       resources :lists, except: [:edit, :new], controller: 'board/lists'
       resources :cards, except: [:edit, :new], controller: 'board/cards'
     end
+
+    resources :cards, only: [] do
+      resources :checklists, except: [:edit, :new], controller: 'card/checklists'
+    end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180127173128) do
+ActiveRecord::Schema.define(version: 20180210133659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,32 @@ ActiveRecord::Schema.define(version: 20180127173128) do
     t.integer "position"
     t.string "slug"
     t.index ["list_id"], name: "index_cards_on_list_id"
+  end
+
+  create_table "checklist_items", force: :cascade do |t|
+    t.bigint "checklist_id"
+    t.bigint "creator_id"
+    t.bigint "completed_by_id"
+    t.string "name"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "timer_id"
+    t.index ["checklist_id"], name: "index_checklist_items_on_checklist_id"
+    t.index ["completed_by_id"], name: "index_checklist_items_on_completed_by_id"
+    t.index ["creator_id"], name: "index_checklist_items_on_creator_id"
+    t.index ["timer_id"], name: "index_checklist_items_on_timer_id"
+  end
+
+  create_table "checklists", force: :cascade do |t|
+    t.bigint "card_id"
+    t.bigint "creator_id"
+    t.string "name"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_checklists_on_card_id"
+    t.index ["creator_id"], name: "index_checklists_on_creator_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -89,6 +115,19 @@ ActiveRecord::Schema.define(version: 20180127173128) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_teams_on_account_id"
+  end
+
+  create_table "timers", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "card_id"
+    t.string "status"
+    t.integer "seconds", default: 0, null: false
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_timers_on_card_id"
+    t.index ["user_id"], name: "index_timers_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
