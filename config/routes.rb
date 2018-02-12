@@ -1,17 +1,27 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   scope 'api' do
     post 'auth/login', to: 'users#login'
     post 'auth/signup', to: 'users#signup'
     get  'profile', to: 'users#profile'
 
+    # As per advice in the rails docs, don't nest any resources deeper than one
+    # level. In a lot of cases, we only need the parent to create the resource.
+    # It can become very cumbersome to pass in parent and grandparent ids to
+    # perform member actions
+
     resources :boards, except: [:edit, :new] do
-      resources :lists, except: [:edit, :new], controller: 'board/lists'
-      resources :cards, except: [:edit, :new], controller: 'board/cards'
+      resources :lists, only: [:create], controller: 'board/lists'
+      resources :cards, only: [:create], controller: 'board/cards'
     end
 
-    resources :cards, only: [] do
-      resources :checklists, except: [:edit, :new], controller: 'card/checklists'
+    resources :lists, only: [:update, :destroy]
+
+    resources :cards, only: [:show, :update, :destroy] do
+      resources :checklists, only: [:create], controller: 'card/checklists'
+    end
+
+    resources :checklists, only: [:update, :destroy] do
+      resources :checklist_items, only: [:create], controller: 'checklists/items'
     end
   end
 end

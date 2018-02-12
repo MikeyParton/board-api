@@ -1,4 +1,4 @@
-class BoardsController < ApplicationController
+class BoardsController < AuthorizedController
   before_action :find_board, only: [:show, :update, :destroy]
 
   def index
@@ -7,7 +7,7 @@ class BoardsController < ApplicationController
   end
 
   def show
-    render json: { board: BoardSerializer.new(@board) }, status: 200
+    render json: { board: BoardSerializer.new(@board, detailed: true) }, status: 200
   end
 
   def create
@@ -21,7 +21,7 @@ class BoardsController < ApplicationController
 
   def update
     if @board.update(board_params)
-      render json: { board: BoardSerializer.new(@board) }, status: 200
+      render json: { board: BoardSerializer.new(@board, detailed: true) }, status: 200
     else
       render json: { errors: @board.errors.full_messages }, status: 422
     end

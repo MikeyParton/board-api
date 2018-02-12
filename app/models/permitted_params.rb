@@ -14,4 +14,14 @@ class PermittedParams < Struct.new(:params)
     valid_keys = [:email, :password]
     params.permit(*valid_keys)
   end
+
+  def list
+    valid_keys = [:name]
+    params.permit(*valid_keys)
+  end
+
+  def card
+    valid_keys = [:name, :list_id]
+    params.permit(*valid_keys)
+  end
 end

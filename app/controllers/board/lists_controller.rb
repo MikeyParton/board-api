@@ -1,28 +1,10 @@
 class Board::ListsController < ::AuthorizedController
-  before_action :find_list, only: [:show, :update, :destroy]
-  before_action :find_board, only: [:create]
+  before_action :find_board
 
   def create
-    @list = @board.lists.new(list_params)
-
+    @list = @board.lists.new(permitted_params.list)
     if @list.save
       render json: { list: ListSerializer.new(@list) }, status: 201
-    else
-      render json: { errors: @list.errors.full_messages }, status: 422
-    end
-  end
-
-  def update
-    if @list.update(list_params)
-      render json: { list: ListSerializer.new(@list) }, status: 200
-    else
-      render json: { errors: @list.errors.full_messages }, status: 422
-    end
-  end
-
-  def destroy
-    if @list.destroy
-      render json: {}, status: 200
     else
       render json: { errors: @list.errors.full_messages }, status: 422
     end
@@ -32,13 +14,5 @@ class Board::ListsController < ::AuthorizedController
 
   def find_board
     @board = Board.friendly.find(params[:board_id])
-  end
-
-  def find_list
-    @list = List.find(id: params[:id])
-  end
-
-  def list_params
-    params.require(:list).permit(:name, :board_id)
   end
 end
