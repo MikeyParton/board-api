@@ -1,4 +1,4 @@
-class CardsController < ApplicationController
+class CardsController < AuthorizedController
   before_action :find_card
 
   def show
@@ -6,7 +6,7 @@ class CardsController < ApplicationController
   end
 
   def update
-    if @card.update(card_params)
+    if @card.update(permitted_params.card)
       render json: { card: CardSerializer.new(@card) }, status: 200
     else
       render json: { errors: @card.errors.full_messages }, status: 422
