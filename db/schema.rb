@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180210133659) do
+ActiveRecord::Schema.define(version: 20180217154009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20180210133659) do
     t.bigint "account_id"
     t.integer "cards_count", default: 0, null: false
     t.string "slug"
+    t.integer "number"
     t.index ["account_id"], name: "index_boards_on_account_id"
   end
 
@@ -40,6 +41,7 @@ ActiveRecord::Schema.define(version: 20180210133659) do
     t.datetime "updated_at", null: false
     t.integer "position"
     t.string "slug"
+    t.integer "number"
     t.index ["list_id"], name: "index_cards_on_list_id"
   end
 
