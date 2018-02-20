@@ -24,4 +24,9 @@ class PermittedParams < Struct.new(:params)
     valid_keys = [:name, :list_id]
     params.permit(*valid_keys)
   end
+
+  def checklist
+    valid_keys = [:name, :card_id]
+    params.permit(*valid_keys)
+  end
 end
