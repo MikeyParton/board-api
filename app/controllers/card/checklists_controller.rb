@@ -6,7 +6,6 @@ class Card::ChecklistsController < AuthorizedController
       creator: current_user
     }))
 
-    binding.pry
     if checklist.save
       render json: { checklist: ChecklistSerializer.new(checklist) }
     else
