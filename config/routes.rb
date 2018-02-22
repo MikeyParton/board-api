@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     end
 
     resources :checklists, only: [:update, :destroy] do
-      resources :checklist_items, only: [:create], controller: 'checklists/items'
+      resources :checklist_items, only: [:create], controller: 'checklist/checklist_items'
     end
   end
 end
