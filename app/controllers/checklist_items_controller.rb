@@ -9,6 +9,14 @@ class ChecklistItemsController < AuthorizedController
     end
   end
 
+  def destroy
+    if @checklist_item.destroy
+      render json: { checklist_items: [ChecklistItemSerializer.new(@checklist_item)] }, status: 200
+    else
+      render json: { errors: @checklist_item.errors }, status: 422
+    end
+  end
+
   def complete
     @checklist_item.completed_by = current_user
     if @checklist_item.complete!
