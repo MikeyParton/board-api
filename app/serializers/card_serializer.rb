@@ -3,7 +3,8 @@ class CardSerializer < ActiveModel::Serializer
              :name,
              :list_id,
              :board_slug,
-             :url
+             :url,
+             :users
 
   # by overriding the attributes method, optional attributes can be defined
   # https://stackoverflow.com/questions/29705802/conditional-attributes-in-active-model-serializers/40069173
@@ -19,6 +20,13 @@ class CardSerializer < ActiveModel::Serializer
     ActiveModelSerializers::SerializableResource.new(
       object.checklists,
       each_serializer: ChecklistSerializer
+    )
+  end
+
+  def users
+    ActiveModelSerializers::SerializableResource.new(
+      object.users,
+      each_serializer: UserSerializer
     )
   end
 

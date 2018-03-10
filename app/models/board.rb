@@ -7,4 +7,5 @@ class Board < ApplicationRecord
   has_many :cards, through: :lists
   has_many :team_boards
   has_many :teams, through: :team_boards
+  has_many :users, through: :teams
 end

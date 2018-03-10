@@ -18,6 +18,10 @@ Rails.application.routes.draw do
 
     resources :cards, only: [:show, :update, :destroy] do
       resources :checklists, only: [:create], controller: 'card/checklists'
+      member do
+        post 'add_user'
+        post 'remove_user'
+      end
     end
 
     resources :checklists, only: [:update, :destroy] do

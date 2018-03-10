@@ -2,12 +2,12 @@ class CardsController < AuthorizedController
   before_action :find_card
 
   def show
-    render json: { card: CardSerializer.new(@card, detailed: true) }, status: 200
+    render json: { cards: [CardSerializer.new(@card, detailed: true)] }, status: 200
   end
 
   def update
     if @card.update(permitted_params.card)
-      render json: { card: CardSerializer.new(@card) }, status: 200
+      render json: { cards: [CardSerializer.new(@card)] }, status: 200
     else
       render json: { errors: @card.errors.full_messages }, status: 422
     end
@@ -30,6 +30,18 @@ class CardsController < AuthorizedController
     )
 
     return render json: {}, status: 200
+  end
+
+  def add_user
+    user = User.find_by(id: params[:user_id])
+    @card.users << user if user.present?
+    render json: { cards: [CardSerializer.new(@card)] }, status: 200
+  end
+
+  def remove_user
+    card_user = @card.card_users.find_by(user_id: params[:user_id])
+    card_user.destroy if card_user.present?
+    render json: { cards: [CardSerializer.new(@card)] }, status: 200
   end
 
   private

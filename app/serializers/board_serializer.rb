@@ -10,6 +10,7 @@ class BoardSerializer < ActiveModel::Serializer
    hash = super
    if @instance_options[:detailed] == true
      hash[:lists] = lists
+     hash[:users] = users
    end
    hash
   end
@@ -18,6 +19,13 @@ class BoardSerializer < ActiveModel::Serializer
     ActiveModelSerializers::SerializableResource.new(
       object.lists,
       each_serializer: ListSerializer
+    )
+  end
+
+  def users
+    ActiveModelSerializers::SerializableResource.new(
+      object.users,
+      each_serializer: UserSerializer
     )
   end
 
