@@ -11,6 +11,7 @@ class BoardSerializer < ActiveModel::Serializer
    if @instance_options[:detailed] == true
      hash[:lists] = lists
      hash[:users] = users
+     hash[:labels] = labels
    end
    hash
   end
@@ -26,6 +27,13 @@ class BoardSerializer < ActiveModel::Serializer
     ActiveModelSerializers::SerializableResource.new(
       object.users,
       each_serializer: UserSerializer
+    )
+  end
+
+  def labels
+    ActiveModelSerializers::SerializableResource.new(
+      object.labels,
+      each_serializer: LabelSerializer
     )
   end
 

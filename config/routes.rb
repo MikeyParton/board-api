@@ -21,6 +21,8 @@ Rails.application.routes.draw do
       member do
         post 'add_user'
         post 'remove_user'
+        post 'add_label'
+        post 'remove_label'
       end
     end
 

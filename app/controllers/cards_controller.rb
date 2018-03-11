@@ -44,6 +44,18 @@ class CardsController < AuthorizedController
     render json: { cards: [CardSerializer.new(@card)] }, status: 200
   end
 
+  def add_label
+    label = Label.find_by(id: params[:label_id])
+    @card.labels << label if label.present?
+    render json: { cards: [CardSerializer.new(@card)] }, status: 200
+  end
+
+  def remove_label
+    card_label = @card.card_labels.find_by(label_id: params[:label_id])
+    card_label.destroy if card_label.present?
+    render json: { cards: [CardSerializer.new(@card)] }, status: 200
+  end
+
   private
 
   def find_card

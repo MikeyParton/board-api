@@ -6,6 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'aasm'
+gem 'activerecord-import'
 gem 'active_model_serializers'
 gem 'acts_as_list'
 gem 'bcrypt'

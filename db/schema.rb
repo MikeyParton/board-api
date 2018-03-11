@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180303104856) do
+ActiveRecord::Schema.define(version: 20180310155142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(version: 20180303104856) do
     t.string "slug"
     t.integer "number"
     t.index ["account_id"], name: "index_boards_on_account_id"
+  end
+
+  create_table "card_labels", force: :cascade do |t|
+    t.bigint "card_id"
+    t.bigint "label_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_card_labels_on_card_id"
+    t.index ["label_id"], name: "index_card_labels_on_label_id"
   end
 
   create_table "card_users", force: :cascade do |t|
@@ -90,6 +99,15 @@ ActiveRecord::Schema.define(version: 20180303104856) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "labels", force: :cascade do |t|
+    t.string "name"
+    t.string "color"
+    t.bigint "board_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["board_id"], name: "index_labels_on_board_id"
   end
 
   create_table "lists", force: :cascade do |t|

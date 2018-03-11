@@ -8,4 +8,5 @@ class Board < ApplicationRecord
   has_many :team_boards
   has_many :teams, through: :team_boards
   has_many :users, through: :teams
+  has_many :labels
 end
