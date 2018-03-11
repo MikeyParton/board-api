@@ -34,4 +34,9 @@ class PermittedParams < Struct.new(:params)
     valid_keys = [:name, :checklist_id]
     params.permit(*valid_keys)
   end
+
+  def label
+    valid_keys = [:name, :color]
+    params.permit(*valid_keys)
+  end
 end

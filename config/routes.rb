@@ -36,5 +36,7 @@ Rails.application.routes.draw do
         put 'undo'
       end
     end
+
+    resources :labels, only: [:update, :destroy]
   end
 end
