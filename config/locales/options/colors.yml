@@ -1,0 +1,17 @@
+en:
+  options:
+    colors:
+      color:
+        green:  "green"
+        yellow: "yellow"
+        orange: "orange"
+        red:    "red"
+        violet: "violet"
+        blue:   "blue"
+      code:
+        green:  "#64BC55"
+        yellow: "#F1D52F"
+        orange: "#FDAA54"
+        red:    "#E95B4B"
+        violet: "#C27ADE"
+        blue:   "#117ABD"

@@ -36,7 +36,7 @@ class PermittedParams < Struct.new(:params)
   end
 
   def label
-    valid_keys = [:name, :color]
+    valid_keys = [:name, :color, :code]
     params.permit(*valid_keys)
   end
 end

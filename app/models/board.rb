@@ -5,7 +5,7 @@ class Board < ApplicationRecord
   belongs_to :account, counter_cache: true
   has_many :lists, -> { order(position: :asc) }, dependent: :destroy
   has_many :cards, through: :lists
-  has_many :team_boards
+  has_many :team_boards, dependent: :destroy
   has_many :teams, through: :team_boards
   has_many :users, through: :teams
   has_many :labels

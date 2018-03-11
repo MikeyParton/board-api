@@ -1,9 +1,9 @@
 class User < ApplicationRecord
-  has_many :team_members
+  has_many :team_members, dependent: :destroy
   has_many :teams, through: :team_members
   has_many :boards, through: :teams
   has_many :timers
-  has_many :card_users
+  has_many :card_users, dependent: :destroy
   has_many :cards, through: :card_users
 
   validates_presence_of :first_name, :last_name, :email, :password_digest

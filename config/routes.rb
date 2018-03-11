@@ -37,6 +37,8 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :labels, only: [:update, :destroy]
+    resources :labels, only: [:update, :destory]
+
+    get 'options/colors', to: 'options#colors'
   end
 end
