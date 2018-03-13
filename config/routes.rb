@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :boards, except: [:edit, :new] do
       resources :lists, only: [:create], controller: 'board/lists'
       resources :cards, only: [:create], controller: 'board/cards'
+      resources :labels, only: [:create], controller: 'board/labels'
     end
 
     resources :lists, only: [:update, :destroy]
