@@ -5,6 +5,7 @@ class Timer < ApplicationRecord
   belongs_to :card
   has_many :checklist_items
 
+  scope :today, -> { where("created_at > ?", Time.now.beginning_of_day) }
 
   aasm column: 'status' do
     state :fresh, initial: true

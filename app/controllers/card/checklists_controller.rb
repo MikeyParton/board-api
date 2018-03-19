@@ -1,6 +1,4 @@
-class Card::ChecklistsController < AuthorizedController
-  before_action :find_card
-
+class Card::ChecklistsController < ::Card::BaseController
   def create
     checklist = @card.checklists.new(permitted_params.checklist.merge({
       creator: current_user
@@ -11,11 +9,5 @@ class Card::ChecklistsController < AuthorizedController
     else
       render json: { error: checklist.errors }, status: 422
     end
-  end
-
-  private
-
-  def find_card
-    @card = Card.find(params[:card_id])
   end
 end

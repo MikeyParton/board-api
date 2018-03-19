@@ -1,4 +1,4 @@
-class Card::UsersController < ::AuthorizedController
+class Card::UsersController < ::Card::BaseController
   before_action :find_card
 
   def index

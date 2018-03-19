@@ -19,6 +19,8 @@ Rails.application.routes.draw do
 
     resources :cards, only: [:show, :update, :destroy] do
       resources :checklists, only: [:create], controller: 'card/checklists'
+      resources :timers, only: [:create], controller: 'card/timers'
+
       member do
         post 'add_user'
         post 'remove_user'
@@ -39,6 +41,12 @@ Rails.application.routes.draw do
     end
 
     resources :labels, only: [:update, :destory]
+    resources :timers, only: [] do
+      member do
+        post 'stop'
+        post 'start'
+      end
+    end
 
     get 'options/colors', to: 'options#colors'
   end

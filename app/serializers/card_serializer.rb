@@ -13,6 +13,7 @@ class CardSerializer < ActiveModel::Serializer
    hash = super
    if @instance_options[:detailed] == true
      hash[:checklists] = checklists
+     hash[:current_timer] = current_timer
    end
    hash
   end
@@ -44,5 +45,10 @@ class CardSerializer < ActiveModel::Serializer
 
   def url
     "/c/#{object.slug}/#{object.number}-#{object.name.downcase.split(' ').join('-')}"
+  end
+
+  def current_timer
+    return nil if object.current_timer.blank?
+    TimerSerializer.new(object.current_timer)
   end
 end
