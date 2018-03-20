@@ -17,6 +17,14 @@ class TimersController < AuthorizedController
     end
   end
 
+  def destroy
+    if @timer.destroy
+      render json: { timers: [TimerSerializer.new(@timer)] }, status: 200
+    else
+      render json: { errors: @timer.errors.full_messages }, status: 422
+    end
+  end
+
   private
 
   def find_timer

@@ -41,7 +41,7 @@ Rails.application.routes.draw do
     end
 
     resources :labels, only: [:update, :destory]
-    resources :timers, only: [] do
+    resources :timers, only: [:destroy] do
       member do
         post 'stop'
         post 'start'
